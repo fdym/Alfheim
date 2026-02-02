@@ -1,0 +1,38 @@
+name: Build
+
+on:
+ workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-tags: true
+          fetch-depth: 0
+
+      - name: Clone
+        run: |
+          git clone https://github.com/fdym/Alfheim.git
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4.7.1
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Fix Gradle permission
+        run: chmod +x ./Alfheim/gradlew
+
+      - name: Build Jars
+        working-directory: ./Alfheim
+        run: ./gradlew build
+
+      - uses: ncipollo/release-action@v1.14.0
+        with:
+          artifacts: "Alfheim/build/libs/*"
+          generateReleaseNotes: true
