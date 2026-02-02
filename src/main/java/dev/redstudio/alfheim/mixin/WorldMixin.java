@@ -75,6 +75,6 @@ public abstract class WorldMixin implements ILightingEngineProvider, ILightLevel
 		if (this.alfheim$lightingEngine == null) {
 			this.alfheim$lightingEngine = new LightingEngine((World) this);
 		}
-		return this.alfheim$lightingEngine
+		return this.alfheim$lightingEngine;
 	}
 }
