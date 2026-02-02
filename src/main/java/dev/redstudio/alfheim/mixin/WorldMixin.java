@@ -23,8 +23,7 @@ import org.spongepowered.asm.mixin.Unique;
 public abstract class WorldMixin implements ILightingEngineProvider, ILightLevelProvider {
 
 	@Unique
-	@Getter(lazy = true, onMethod_ = {@Override})
-	private final LightingEngine alfheim$lightingEngine = new LightingEngine((World) (Object) this);
+	private LightingEngine alfheim$lightingEngine = null;
 
 	@Shadow
 	private int skylightSubtracted;
@@ -70,5 +69,12 @@ public abstract class WorldMixin implements ILightingEngineProvider, ILightLevel
 	@Override
 	public int alfheim$getLight(final EnumSkyBlock lightType, final BlockPos blockPos) {
 		return getLightFor(lightType, blockPos);
+	}
+
+	public LightingEngine getAlfheim$lightingEngine() {
+		if (this.alfheim$lightingEngine == null) {
+			this.alfheim$lightingEngine = new LightingEngine((World) this);
+		}
+		return this.alfheim$lightingEngine
 	}
 }
