@@ -36,3 +36,4 @@ jobs:
         with:
           artifacts: "Alfheim/build/libs/*"
           generateReleaseNotes: true
+          tag: 1.6-hotfix1
